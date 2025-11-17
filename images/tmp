@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Time Zone Digital Clock</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #222;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    .clock-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .clock {
+      background: #333;
+      padding: 20px 35px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 14px #1118;
+      text-align: center;
+      min-width: 200px;
+    }
+    .zone {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      color: #bbb;
+    }
+    .time {
+      font-size: 2em;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Digital Clock - Multiple Time Zones</h1>
+  <div class="clock-container">
+    <div class="clock">
+      <div class="zone">Your Local Time</div>
+      <div class="time" id="local"></div>
+    </div>
+    <div class="clock">
+      <div class="zone">UTC</div>
+      <div class="time" id="utc"></div>
+    </div>
+    <div class="clock">
+      <div class="zone">New York (EST/EDT)</div>
+      <div class="time" id="ny"></div>
+    </div>
+    <div class="clock">
+      <div class="zone">London (GMT/BST)</div>
+      <div class="time" id="london"></div>
+    </div>
+    <div class="clock">
+      <div class="zone">Tokyo (JST)</div>
+      <div class="time" id="tokyo"></div>
+    </div>
+  </div>
+  <script>
+    function updateClocks() {
+      const now = new Date();
+
+      document.getElementById('local').textContent =
+        now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+
+      document.getElementById('utc').textContent =
+        now.toLocaleTimeString('en-GB', {timeZone:'UTC', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+
+      document.getElementById('ny').textContent =
+        now.toLocaleTimeString('en-US', {timeZone:'America/New_York', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+
+      document.getElementById('london').textContent =
+        now.toLocaleTimeString('en-GB', {timeZone:'Europe/London', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+
+      document.getElementById('tokyo').textContent =
+        now.toLocaleTimeString('ja-JP', {timeZone:'Asia/Tokyo', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+    }
+
+    setInterval(updateClocks, 1000);
+    updateClocks();
+  </script>
+</body>
+</html>
